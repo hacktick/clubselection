@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Core Models
+
+// Admins - authenticate with username/password
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // Should be hashed before storage
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Students - authenticate with token (QR code scannable)
+model Student {
+  id        String   @id @default(cuid())
+  token     String   @unique  // One-way hashed identifier (e.g., hash of email)
+  name      String?  // Optional display name
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  enrollments Enrollment[]
+  submissions Submission[]
+  projects    Project[]     // Projects this student can enroll in
+}
+
+model Project {
+  id              String    @id @default(cuid())
+  name            String
+  description     String?
+  timezone        String    @default("UTC")
+  submissionStart DateTime?
+  submissionEnd   DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  courses      Course[]
+  tags         Tag[]
+  students     Student[]     // Students allowed to enroll in this project
+  submissions  Submission[]
+  timeSections TimeSection[]
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  capacity    Int?
+  projectId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  project      Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  enrollments  Enrollment[]
+  rules        EnrollmentRule[]
+  occurrences  CourseOccurrence[]
+  tags         Tag[]              @relation("CourseToTag")
+}
+
+model CourseOccurrence {
+  id        String   @id @default(cuid())
+  courseId  String
+  dayOfWeek Int      // 0=Monday, 1=Tuesday, ..., 6=Sunday
+  sectionId String   // Reference to TimeSection
+  createdAt DateTime @default(now())
+
+  // Relations
+  course  Course      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  section TimeSection @relation(fields: [sectionId], references: [id], onDelete: Restrict)
+}
+
+model TimeSection {
+  id        String   @id @default(cuid())
+  projectId String
+  label     String   // e.g., "Period 1", "Morning Session"
+  startTime String   // HH:mm format (e.g., "09:00")
+  endTime   String   // HH:mm format (e.g., "10:45")
+  order     Int      @default(0) // Display order
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  project     Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  occurrences CourseOccurrence[]
+
+  @@index([projectId, order])
+}
+
+model Tag {
+  id          String   @id @default(cuid())
+  name        String
+  color       String   @default("#667eea")
+  minRequired Int      @default(0)  // Minimum courses student must select from this tag
+  maxAllowed  Int?                  // Maximum courses student can select from this tag (null = unlimited)
+  projectId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  courses Course[] @relation("CourseToTag")
+}
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  studentId String
+  courseId  String
+  status    String   @default("PENDING") // Values: "PENDING" | "CONFIRMED" | "CANCELLED"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId])
+}
+
+model Submission {
+  id         String   @id @default(cuid())
+  studentId  String
+  projectId  String
+  submittedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, projectId])
+}
+
+model EnrollmentRule {
+  id          String   @id @default(cuid())
+  courseId    String
+  ruleType    String   // Values: "TIME_CONSTRAINT" | "CAPACITY_LIMIT" | "PREREQUISITE"
+  startTime   DateTime?
+  endTime     DateTime?
+  maxEnrollments Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Settings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

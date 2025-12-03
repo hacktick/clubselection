@@ -1,0 +1,47 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs (we build inside Docker)
+**/dist
+packages/backend/dist
+packages/frontend/dist
+
+# Development files
+.git
+.gitignore
+*.md
+docs/
+
+# Environment files (should be passed via docker-compose)
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+**/*.test.ts
+**/*.spec.ts
+**/coverage
+
+# SQLite database files
+*.db
+*.db-journal
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docker files (not needed inside container)
+Dockerfile
+docker-compose*.yml
+.dockerignore

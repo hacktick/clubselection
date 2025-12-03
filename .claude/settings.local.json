@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /b \"d:\\Repos\\clubselection\")",
+      "Bash(del \"d:\\Repos\\clubselection\\packages\\frontend\\src\\style.css\")",
+      "Bash(del \"d:\\Repos\\clubselection\\packages\\frontend\\src\\styles\\time-sections-tab.css\")",
+      "Bash(del \"d:\\Repos\\clubselection\\packages\\frontend\\src\\styles\\project-form-page.css\")",
+      "Bash(del \"d:\\Repos\\clubselection\\packages\\frontend\\src\\styles\\project-form.css\")",
+      "Bash(del \"d:\\Repos\\clubselection\\packages\\frontend\\src\\styles\\courses-tab.css\")",
+      "Bash(npm run build:backend:*)",
+      "Bash(dir:*)",
+      "Bash(npm install)",
+      "Bash(npm run build:frontend:*)",
+      "Bash(npm run dev:frontend:*)",
+      "Bash(timeout:*)",
+      "Bash(npx vite build)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
