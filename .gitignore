@@ -47,3 +47,10 @@ packages/backend/prisma/migrations/
 # Temporary files
 *.tmp
 *.temp
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Generated declaration files in frontend src
+packages/frontend/src/**/*.d.ts
+!packages/frontend/src/vite-env.d.ts

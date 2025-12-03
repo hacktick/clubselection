@@ -22,9 +22,9 @@ class ApiService {
     const authStore = useAuthStore();
 
     // Build headers
-    const requestHeaders: HeadersInit = {
+    const requestHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
-      ...headers,
+      ...(headers as Record<string, string>),
     };
 
     // Add JWT token if available and not skipped

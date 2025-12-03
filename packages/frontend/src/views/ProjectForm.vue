@@ -261,7 +261,7 @@ async function saveTag() {
   if (!tagName.value.trim()) return;
 
   const minVal = Number(tagMinRequired.value);
-  const maxVal = tagMaxAllowed.value !== null && tagMaxAllowed.value !== '' ? Number(tagMaxAllowed.value) : null;
+  const maxVal = tagMaxAllowed.value !== null ? Number(tagMaxAllowed.value) : null;
 
   const payload = {
     name: tagName.value,
