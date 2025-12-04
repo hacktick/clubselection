@@ -1,17 +1,25 @@
 #!/bin/sh
 set -e
 
-echo "Running database migrations..."
-npx prisma migrate deploy
+echo "Applying database schema..."
+npx prisma db push --skip-generate
 
-# Check if admin user exists, if not seed the database
-ADMIN_COUNT=$(npx prisma db execute --stdin <<< "SELECT COUNT(*) as count FROM Admin;" 2>/dev/null | grep -o '[0-9]*' | head -1 || echo "0")
+# Check if admin user exists by trying to count admins
+# If table doesn't exist or is empty, seed the database
+echo "Checking for existing admin user..."
+ADMIN_EXISTS=$(npx prisma db execute --stdin --json 2>/dev/null <<EOF
+SELECT COUNT(*) as count FROM Admin;
+EOF
+) || ADMIN_EXISTS=""
 
-if [ "$ADMIN_COUNT" = "0" ] || [ -z "$ADMIN_COUNT" ]; then
+# Extract count from JSON response
+COUNT=$(echo "$ADMIN_EXISTS" | grep -o '"count":[0-9]*' | grep -o '[0-9]*' || echo "0")
+
+if [ "$COUNT" = "0" ] || [ -z "$COUNT" ]; then
   echo "No admin user found, seeding database..."
   npx prisma db seed
 else
-  echo "Admin user already exists, skipping seed."
+  echo "Admin user already exists ($COUNT found), skipping seed."
 fi
 
 echo "Starting application..."
