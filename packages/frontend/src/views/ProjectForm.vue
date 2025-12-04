@@ -443,10 +443,8 @@ if (isEditMode.value) {
           <label for="students">{{ t('student.identifiers') }}</label>
           <textarea
             id="students"
-            v-model="studentsText"
             :placeholder="t('student.identifiersPlaceholder')"
-            :rows="10"
-            :disabled="addingStudents"
+            rows="10"
           ></textarea>
         </fieldset>
 
