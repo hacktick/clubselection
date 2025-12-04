@@ -255,6 +255,93 @@ router.put(
     }
 );
 
+// DELETE /api/admin/projects/:id - Delete project and all related entities
+router.delete('/admin/projects/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+        const project = await prisma.project.findUnique({
+            where: { id },
+        });
+
+        if (!project) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
+
+        // Delete in a transaction to ensure all related entities are removed
+        await prisma.$transaction(async (tx) => {
+            // 1. Delete all enrollments for courses in this project
+            await tx.enrollment.deleteMany({
+                where: {
+                    course: {
+                        projectId: id,
+                    },
+                },
+            });
+
+            // 2. Delete all submissions for this project
+            await tx.submission.deleteMany({
+                where: {
+                    projectId: id,
+                },
+            });
+
+            // 3. Delete all course occurrences for courses in this project
+            await tx.courseOccurrence.deleteMany({
+                where: {
+                    course: {
+                        projectId: id,
+                    },
+                },
+            });
+
+            // 4. Delete all courses for this project
+            await tx.course.deleteMany({
+                where: {
+                    projectId: id,
+                },
+            });
+
+            // 5. Delete all tags for this project
+            await tx.tag.deleteMany({
+                where: {
+                    projectId: id,
+                },
+            });
+
+            // 6. Delete all time sections for this project
+            await tx.timeSection.deleteMany({
+                where: {
+                    projectId: id,
+                },
+            });
+
+            // 7. Disconnect students from this project (don't delete students themselves)
+            await tx.project.update({
+                where: { id },
+                data: {
+                    students: {
+                        set: [],
+                    },
+                },
+            });
+
+            // 8. Finally, delete the project itself
+            await tx.project.delete({
+                where: { id },
+            });
+        });
+
+        return res.json({
+            success: true,
+            message: 'Project and all related data deleted successfully',
+        });
+    } catch (error) {
+        console.error('Error deleting project:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // DELETE /api/admin/projects/:id/submissions - Delete all submissions
 router.delete('/admin/projects/:id/submissions', async (req: Request, res: Response) => {
     const { id } = req.params;

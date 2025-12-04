@@ -360,3 +360,30 @@ const students = ref([]);  // ref named 'students'
 - Vue DevTools may not show the component
 
 **Prevention:** Always use hyphenated or more descriptive IDs (e.g., `student-list`, `student-identifiers`) rather than simple names that might match variable names.
+
+### Vue I18n Special Character Escaping
+
+**CRITICAL**: The `@` symbol in Vue I18n translation strings is reserved for linked messages (e.g., `@:some.other.key`). Using `@` literally (like in email addresses) causes `SyntaxError: Invalid linked format` at runtime.
+
+**Example of broken code:**
+```json
+{
+  "placeholder": "user@example.com"
+}
+```
+
+**Fixed code:**
+```json
+{
+  "placeholder": "user{'@'}example.com"
+}
+```
+
+The `{'@'}` syntax is Vue I18n's literal interpolation, which outputs the `@` character without parsing it as a linked message.
+
+**Symptoms:**
+- `SyntaxError: Invalid linked format` in browser console
+- Error occurs when the translation is first rendered
+- May cause component rendering to fail silently
+
+**Other reserved characters** that may need escaping: `|` (pluralization), `{` and `}` (interpolation), `$` (modifiers).

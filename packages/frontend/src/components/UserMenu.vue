@@ -16,9 +16,11 @@ const toggleMenu = async () => {
   if (isMenuOpen.value && buttonRef.value) {
     await nextTick();
     const rect = buttonRef.value.getBoundingClientRect();
+    // Use clientWidth instead of innerWidth to account for scrollbar
+    const viewportWidth = document.documentElement.clientWidth;
     dropdownStyle.value = {
       top: `${rect.bottom}px`,
-      right: `${window.innerWidth - rect.right}px`,
+      right: `${viewportWidth - rect.right}px`,
       width: `${rect.width}px`
     };
   }

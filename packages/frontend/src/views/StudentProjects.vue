@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { api } from '@/services/api';
+import { formatDateTime } from '@/utils/date';
 import { BaseButton, BaseAlert, BaseBadge, BaseEmptyState, BaseHeader, BaseSection, BaseCard } from '@/components/ui';
 
 const { t, locale } = useI18n();
@@ -54,15 +55,8 @@ function formatStatus(status: ProjectStatus): string {
   return t(`studentProjects.status.${status}`);
 }
 
-const dateLocale = computed(() => locale.value === 'de' ? 'de-DE' : 'en-US');
-
 function formatDate(dateString: string | null): string {
-  if (!dateString) return '—';
-  return new Date(dateString).toLocaleDateString(dateLocale.value, {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  return formatDateTime(dateString, locale.value);
 }
 
 function navigateToProject(projectId: string) {

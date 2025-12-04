@@ -3,10 +3,11 @@ import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { api } from '@/services/api';
+import { formatDateTime as formatDateTimeUtil } from '@/utils/date';
 import { BaseButton, BaseInput, BaseTextarea, BaseAlert, BaseBadge, BaseEmptyState, BaseHeader, BaseSection, BaseCard } from '@/components/ui';
 import ExportSubmissionsModal from '@/components/ExportSubmissionsModal.vue';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 interface Enrollment {
   id: string;
@@ -54,22 +55,11 @@ const hasSubmissions = computed(() => {
 const canEdit = computed(() => !hasSubmissions.value);
 
 function formatDate(dateString: string | null): string {
-  if (!dateString) return t('common.notSet');
-  return new Date(dateString).toLocaleDateString(undefined, {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  return formatDateTimeUtil(dateString, locale.value, t('common.notSet'));
 }
 
 function formatDateTime(dateString: string): string {
-  return new Date(dateString).toLocaleString(undefined, {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  return formatDateTimeUtil(dateString, locale.value);
 }
 
 async function fetchProject() {

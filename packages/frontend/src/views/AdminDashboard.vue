@@ -3,10 +3,11 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { api } from '@/services/api';
+import { formatDateTime } from '@/utils/date';
 import { BaseButton, BaseInput, BaseAlert, BaseBadge, BaseEmptyState, BaseHeader, BaseSection, BaseCard } from '@/components/ui';
 import ImportProjectModal from '@/components/ImportProjectModal.vue';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 interface Project {
   id: string;
@@ -30,13 +31,13 @@ const savingSiteTitle = ref(false);
 const siteTitleSaveMessage = ref('');
 const showImportModal = ref(false);
 
-function formatDate(dateString: string | null): string {
-  if (!dateString) return t('common.notSet');
-  return new Date(dateString).toLocaleDateString(undefined, {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
+// Delete project state
+const showDeleteModal = ref(false);
+const projectToDelete = ref<Project | null>(null);
+const deletingProject = ref(false);
+
+function formatProjectDateTime(dateString: string | null): string {
+  return formatDateTime(dateString, locale.value, t('common.notSet'));
 }
 
 async function fetchProjects() {
@@ -151,6 +152,38 @@ async function exportProject(id: string, event: Event) {
   }
 }
 
+function openDeleteModal(project: Project, event: Event) {
+  event.stopPropagation();
+  projectToDelete.value = project;
+  showDeleteModal.value = true;
+}
+
+function closeDeleteModal() {
+  showDeleteModal.value = false;
+  projectToDelete.value = null;
+}
+
+async function confirmDeleteProject() {
+  if (!projectToDelete.value) return;
+
+  deletingProject.value = true;
+  try {
+    const response = await api.delete(`/api/admin/projects/${projectToDelete.value.id}`);
+    if (!response.ok) {
+      const data = await response.json();
+      error.value = data.error || t('project.failedToDelete');
+      return;
+    }
+    projects.value = projects.value.filter(p => p.id !== projectToDelete.value?.id);
+    closeDeleteModal();
+  } catch (err) {
+    error.value = t('common.networkError');
+    console.error('Error deleting project:', err);
+  } finally {
+    deletingProject.value = false;
+  }
+}
+
 onMounted(() => {
   fetchProjects();
   fetchSiteTitle();
@@ -235,14 +268,28 @@ onMounted(() => {
               </td>
               <td>
                 <span data-date-range>
-                  {{ formatDate(project.submissionStart) }} — {{ formatDate(project.submissionEnd) }}
+                  {{ formatProjectDateTime(project.submissionStart) }} — {{ formatProjectDateTime(project.submissionEnd) }}
                 </span>
               </td>
               <td><BaseBadge status="success">{{ project.completedCount }}</BaseBadge></td>
               <td><BaseBadge status="warning">{{ project.inProgressCount }}</BaseBadge></td>
-              <td>
+              <td data-actions>
                 <BaseButton size="small" variant="secondary" @click="exportProject(project.id, $event)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
                   {{ t('common.export') }}
+                </BaseButton>
+                <BaseButton size="small" variant="danger" @click="openDeleteModal(project, $event)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    <line x1="10" y1="11" x2="10" y2="17"/>
+                    <line x1="14" y1="11" x2="14" y2="17"/>
+                  </svg>
+                  {{ t('common.delete') }}
                 </BaseButton>
               </td>
             </tr>
@@ -255,5 +302,28 @@ onMounted(() => {
       v-model="showImportModal"
       @imported="onProjectImported"
     />
+
+    <!-- Delete Confirmation Modal -->
+    <Teleport to="body">
+      <div v-if="showDeleteModal" data-overlay @click="closeDeleteModal">
+        <BaseCard :title="t('project.deleteConfirmTitle')" @click.stop>
+          <template #titleActions>
+            <button data-close @click="closeDeleteModal">×</button>
+          </template>
+
+          <p>{{ t('project.deleteConfirmMessage', { name: projectToDelete?.name }) }}</p>
+          <p><strong>{{ t('project.deleteWarning') }}</strong></p>
+
+          <template #actions>
+            <BaseButton variant="secondary" @click="closeDeleteModal" :disabled="deletingProject">
+              {{ t('common.cancel') }}
+            </BaseButton>
+            <BaseButton variant="danger" @click="confirmDeleteProject" :loading="deletingProject">
+              {{ t('project.delete') }}
+            </BaseButton>
+          </template>
+        </BaseCard>
+      </div>
+    </Teleport>
   </div>
 </template>
