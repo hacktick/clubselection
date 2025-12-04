@@ -14,7 +14,9 @@
       "Bash(npm run dev:frontend:*)",
       "Bash(timeout:*)",
       "Bash(npx vite build)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(npm run dev:*)",
+      "Bash(git fetch:*)"
     ],
     "deny": [],
     "ask": []

@@ -54,3 +54,4 @@ packages/backend/prisma/migrations/
 # Generated declaration files in frontend src
 packages/frontend/src/**/*.d.ts
 !packages/frontend/src/vite-env.d.ts
+*.js
