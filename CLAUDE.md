@@ -326,3 +326,37 @@ Comprehensive docs in `docs/`:
 - `AUTHENTICATION.md` - Dual auth system details
 
 **Refer to these** before making architectural changes.
+
+## Known Vue Production Build Issues
+
+### ID Attribute Collisions with Ref Variables
+
+**CRITICAL**: Never use an `id` attribute value that matches a `ref()` variable name in the same component. Vue's production build optimizer can confuse the ID string with the ref variable, causing the entire component subtree to silently fail to render.
+
+**Example of broken code:**
+```vue
+<script setup>
+const students = ref([]);  // ref named 'students'
+</script>
+
+<template>
+  <!-- BAD: id="students" conflicts with the ref -->
+  <textarea id="students" v-model="text"></textarea>
+</template>
+```
+
+**Fixed code:**
+```vue
+<template>
+  <!-- GOOD: Use a different id that doesn't match any ref name -->
+  <textarea id="student-identifiers" v-model="text"></textarea>
+</template>
+```
+
+**Symptoms:**
+- Works perfectly in development (`npm run dev`)
+- Silently fails in production build - component renders as `<!---->` (empty comment node)
+- No console errors
+- Vue DevTools may not show the component
+
+**Prevention:** Always use hyphenated or more descriptive IDs (e.g., `student-list`, `student-identifiers`) rather than simple names that might match variable names.
