@@ -444,9 +444,9 @@ if (isEditMode.value) {
           </BaseButton>
         </template>
 
-        <!-- <p>{{ t('student.identifiersDescription') }}</p>
+        <p>{{ t('student.identifiersDescription') }}</p>
 
-        <fieldset>
+        <!-- <fieldset>
           <label for="student-identifiers">{{ t('student.identifiers') }}</label>
           <BaseTextarea
             id="student-identifiers"
@@ -455,9 +455,9 @@ if (isEditMode.value) {
             :rows="10"
             :disabled="addingStudents"
           />
-        </fieldset>
+        </fieldset> -->
 
-        <BaseAlert v-if="error" type="error">{{ error }}</BaseAlert> -->
+        <BaseAlert v-if="error" type="error">{{ error }}</BaseAlert>
 
         <template #actions>
           <BaseButton @click="handleAddStudents" variant="primary" :disabled="addingStudents || !studentsText.trim()" :loading="addingStudents">
