@@ -67,6 +67,10 @@ COPY --from=frontend-builder /app/packages/frontend/dist ./packages/frontend/dis
 WORKDIR /app/packages/backend
 RUN npx prisma generate
 
+# Copy entrypoint script
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3001
@@ -79,4 +83,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:3001/api/health || exit 1
 
 # Start the application
-CMD ["node", "dist/index.js"]
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
