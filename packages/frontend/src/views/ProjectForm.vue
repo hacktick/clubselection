@@ -440,7 +440,7 @@ if (isEditMode.value) {
         <p>{{ t('student.identifiersDescription') }}</p>
 
         <label for="student-ids">{{ t('student.identifiers') }}</label>
-        <textarea id="student-ids" rows="10" placeholder="test"></textarea>
+        <textarea id="student-ids" rows="10" placeholder="test" v-model="studentsText"></textarea>
 
         <template #actions>
           <BaseButton @click="handleAddStudents" variant="primary" :disabled="addingStudents || !studentsText.trim()" :loading="addingStudents">
