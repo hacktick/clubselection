@@ -13,7 +13,7 @@ const showLicense = ref(false);
     <div data-footer-content>
       <span>&copy; {{ currentYear }} Club Selection</span>
       <nav>
-        <a href="https://github.com/hacktick/club-selection" target="_blank" rel="noopener noreferrer">{{ t('footer.sourceCode') }}</a>
+        <a href="https://github.com/hacktick/clubselection" target="_blank" rel="noopener noreferrer">{{ t('footer.sourceCode') }}</a>
         <a href="#" @click.prevent="showLicense = true">{{ t('footer.license') }}</a>
       </nav>
     </div>
