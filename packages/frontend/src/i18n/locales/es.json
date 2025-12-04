@@ -171,7 +171,7 @@
     "enrollment": "Inscripcion de estudiantes",
     "enrollmentDescription": "Los estudiantes inscritos en este proyecto pueden acceder a su pagina de inscripcion usando su token unico.",
     "tokenNote": "Reemplace STUDENT_TOKEN_HERE con el token real del estudiante",
-    "registered": "{count} estudiante registrado | {count} estudiantes registrados",
+    "registered": "{count} estudiantes registrados",
     "failedToAdd": "Error al agregar estudiantes",
     "failedToDelete": "Error al eliminar estudiantes",
     "deleteAllConfirm": "Eliminar todos los estudiantes? Esta accion no se puede deshacer."

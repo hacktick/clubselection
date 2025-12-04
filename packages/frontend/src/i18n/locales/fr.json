@@ -171,7 +171,7 @@
     "enrollment": "Inscription des etudiants",
     "enrollmentDescription": "Les etudiants inscrits a ce projet peuvent acceder a leur page d'inscription en utilisant leur jeton unique.",
     "tokenNote": "Remplacez STUDENT_TOKEN_HERE par le jeton reel de l'etudiant",
-    "registered": "{count} etudiant inscrit | {count} etudiants inscrits",
+    "registered": "{count} etudiants inscrits",
     "failedToAdd": "Echec de l'ajout des etudiants",
     "failedToDelete": "Echec de la suppression des etudiants",
     "deleteAllConfirm": "Supprimer tous les etudiants? Cette action est irreversible."

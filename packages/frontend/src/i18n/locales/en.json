@@ -171,7 +171,7 @@
     "enrollment": "Student Enrollment",
     "enrollmentDescription": "Students enrolled in this project can access their enrollment page using their unique token.",
     "tokenNote": "Replace STUDENT_TOKEN_HERE with actual student token",
-    "registered": "{count} student registered | {count} students registered",
+    "registered": "{count} students registered",
     "failedToAdd": "Failed to add students",
     "failedToDelete": "Failed to delete students",
     "deleteAllConfirm": "Delete all students? This cannot be undone."

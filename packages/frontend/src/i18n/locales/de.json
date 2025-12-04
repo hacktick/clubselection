@@ -171,7 +171,7 @@
     "enrollment": "Schülereinschreibung",
     "enrollmentDescription": "Eingeschriebene Schüler können über ihren eindeutigen Token auf ihre Einschreibungsseite zugreifen.",
     "tokenNote": "Ersetzen Sie STUDENT_TOKEN_HERE durch den tatsächlichen Schüler-Token",
-    "registered": "{count} Schüler registriert | {count} Schüler registriert",
+    "registered": "{count} Schüler registriert",
     "failedToAdd": "Schüler konnten nicht hinzugefügt werden",
     "failedToDelete": "Schüler konnten nicht gelöscht werden",
     "deleteAllConfirm": "Alle Schüler löschen? Dies kann nicht rückgängig gemacht werden."
