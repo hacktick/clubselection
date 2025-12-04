@@ -439,14 +439,12 @@ if (isEditMode.value) {
       <BaseCard v-show="activeTab === 'students'" :title="t('student.add')">
         <p>{{ t('student.identifiersDescription') }}</p>
 
-        <fieldset>
-          <label for="students">{{ t('student.identifiers') }}</label>
-          <textarea
-            id="students"
-            :placeholder="t('student.identifiersPlaceholder')"
-            rows="10"
-          ></textarea>
-        </fieldset>
+        <label for="students">{{ t('student.identifiers') }}</label>
+        <textarea
+          id="students"
+          :placeholder="t('student.identifiersPlaceholder')"
+          rows="10"
+        ></textarea>
 
         <template #actions>
           <BaseButton @click="handleAddStudents" variant="primary" :disabled="addingStudents || !studentsText.trim()" :loading="addingStudents">
