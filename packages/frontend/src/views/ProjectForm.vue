@@ -437,33 +437,7 @@ if (isEditMode.value) {
 
       <!-- Students Tab -->
       <BaseCard v-show="activeTab === 'students'" :title="t('student.add')">
-        <template #titleActions>
-          <BaseBadge status="info">{{ t('student.registered', studentCount) }}</BaseBadge>
-          <BaseButton v-if="studentCount > 0" @click="handleDeleteAllStudents" variant="danger" size="small" :loading="deletingStudents">
-            {{ t('common.deleteAll') }}
-          </BaseButton>
-        </template>
-
-        <p>{{ t('student.identifiersDescription') }}</p>
-
-        <fieldset>
-          <label for="students">{{ t('student.identifiers') }}</label>
-          <BaseTextarea
-            id="students"
-            v-model="studentsText"
-            :placeholder="t('student.identifiersPlaceholder')"
-            :rows="10"
-            :disabled="addingStudents"
-          />
-        </fieldset>
-
-        <BaseAlert v-if="error" type="error">{{ error }}</BaseAlert>
-
-        <template #actions>
-          <BaseButton @click="handleAddStudents" variant="primary" :disabled="addingStudents || !studentsText.trim()" :loading="addingStudents">
-            {{ t('student.add') }}
-          </BaseButton>
-        </template>
+        <p>STUDENTS TAB TEST - If you see this, the card renders!</p>
       </BaseCard>
 
       <!-- Tags Tab -->
