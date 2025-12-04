@@ -446,7 +446,7 @@ if (isEditMode.value) {
 
         <p>{{ t('student.identifiersDescription') }}</p>
 
-        <!-- <fieldset>
+        <!-- <fieldset> -->
           <label for="student-identifiers">{{ t('student.identifiers') }}</label>
           <BaseTextarea
             id="student-identifiers"
@@ -455,7 +455,7 @@ if (isEditMode.value) {
             :rows="10"
             :disabled="addingStudents"
           />
-        </fieldset> -->
+        <!-- </fieldset> -->
 
         <BaseAlert v-if="error" type="error">{{ error }}</BaseAlert>
 
