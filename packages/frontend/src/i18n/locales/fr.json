@@ -62,7 +62,22 @@
     "loginButton": "Se connecter",
     "loginError": "Nom d'utilisateur ou mot de passe invalide",
     "welcomeBack": "Bon retour",
-    "guest": "Invite"
+    "guest": "Invite",
+    "adminLogin": "Connexion administrateur",
+    "adminLoginSubtitle": "Connectez-vous pour gerer les projets et les inscriptions",
+    "usernamePlaceholder": "Entrez le nom d'utilisateur",
+    "passwordPlaceholder": "Entrez le mot de passe",
+    "signIn": "Se connecter",
+    "defaultCredentials": "Identifiants par defaut: admin / admin",
+    "loginFailed": "Echec de la connexion",
+    "studentEnrollment": "Inscription etudiant",
+    "studentEnrollmentSubtitle": "Entrez votre jeton d'inscription pour acceder a vos projets",
+    "enrollmentToken": "Jeton d'inscription",
+    "tokenPlaceholder": "Entrez votre jeton",
+    "enter": "Entrer",
+    "pleaseEnterToken": "Veuillez entrer un jeton",
+    "invalidToken": "Jeton invalide",
+    "validatingToken": "Validation de votre jeton..."
   },
   "nav": {
     "dashboard": "Tableau de bord",

@@ -62,7 +62,22 @@
     "loginButton": "Log In",
     "loginError": "Invalid username or password",
     "welcomeBack": "Welcome back",
-    "guest": "Guest"
+    "guest": "Guest",
+    "adminLogin": "Admin Login",
+    "adminLoginSubtitle": "Sign in to manage projects and enrollments",
+    "usernamePlaceholder": "Enter username",
+    "passwordPlaceholder": "Enter password",
+    "signIn": "Sign In",
+    "defaultCredentials": "Default credentials: admin / admin",
+    "loginFailed": "Login failed",
+    "studentEnrollment": "Student Enrollment",
+    "studentEnrollmentSubtitle": "Enter your enrollment token to access your projects",
+    "enrollmentToken": "Enrollment Token",
+    "tokenPlaceholder": "Enter your token",
+    "enter": "Enter",
+    "pleaseEnterToken": "Please enter a token",
+    "invalidToken": "Invalid token",
+    "validatingToken": "Validating your token..."
   },
   "nav": {
     "dashboard": "Dashboard",

@@ -62,7 +62,22 @@
     "loginButton": "Iniciar sesion",
     "loginError": "Usuario o contrasena invalidos",
     "welcomeBack": "Bienvenido de nuevo",
-    "guest": "Invitado"
+    "guest": "Invitado",
+    "adminLogin": "Inicio de sesion de administrador",
+    "adminLoginSubtitle": "Inicie sesion para gestionar proyectos e inscripciones",
+    "usernamePlaceholder": "Ingrese usuario",
+    "passwordPlaceholder": "Ingrese contrasena",
+    "signIn": "Iniciar sesion",
+    "defaultCredentials": "Credenciales predeterminadas: admin / admin",
+    "loginFailed": "Error de inicio de sesion",
+    "studentEnrollment": "Inscripcion de estudiante",
+    "studentEnrollmentSubtitle": "Ingrese su token de inscripcion para acceder a sus proyectos",
+    "enrollmentToken": "Token de inscripcion",
+    "tokenPlaceholder": "Ingrese su token",
+    "enter": "Entrar",
+    "pleaseEnterToken": "Por favor ingrese un token",
+    "invalidToken": "Token invalido",
+    "validatingToken": "Validando su token..."
   },
   "nav": {
     "dashboard": "Panel",

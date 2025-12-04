@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { api } from '@/services/api';
 import { BaseButton, BaseInput, BaseAlert, BaseCard } from '@/components/ui';
 
+const { t } = useI18n();
 const router = useRouter();
 const authStore = useAuthStore();
 
@@ -26,7 +28,7 @@ async function handleLogin() {
     const data = await response.json();
 
     if (!response.ok) {
-      error.value = data.error || 'Login failed';
+      error.value = data.error || t('auth.loginFailed');
       loading.value = false;
       return;
     }
@@ -34,7 +36,7 @@ async function handleLogin() {
     authStore.setAdmin(data.admin, data.token);
     router.push('/admin');
   } catch (err) {
-    error.value = 'Network error. Please try again.';
+    error.value = t('common.networkError');
     console.error('Login error:', err);
   } finally {
     loading.value = false;
@@ -44,29 +46,29 @@ async function handleLogin() {
 
 <template>
   <section data-bg="glow" data-center-content>
-    <BaseCard title="Admin Login" style="max-width: 50vw; min-width: 350px;">
-      <p data-subtitle>Sign in to manage projects and enrollments</p>
+    <BaseCard :title="t('auth.adminLogin')" style="max-width: 50vw; min-width: 350px;">
+      <p data-subtitle>{{ t('auth.adminLoginSubtitle') }}</p>
 
       <form @submit.prevent="handleLogin">
         <fieldset>
-          <label for="username">Username</label>
+          <label for="username">{{ t('auth.username') }}</label>
           <BaseInput
             id="username"
             v-model="username"
             type="text"
-            placeholder="Enter username"
+            :placeholder="t('auth.usernamePlaceholder')"
             required
             :disabled="loading"
           />
         </fieldset>
 
         <fieldset>
-          <label for="password">Password</label>
+          <label for="password">{{ t('auth.password') }}</label>
           <BaseInput
             id="password"
             v-model="password"
             type="password"
-            placeholder="Enter password"
+            :placeholder="t('auth.passwordPlaceholder')"
             required
             :disabled="loading"
           />
@@ -74,12 +76,12 @@ async function handleLogin() {
 
         <BaseAlert v-if="error" type="error">{{ error }}</BaseAlert>
 
-        <small>Default credentials: admin / admin</small>
+        <small>{{ t('auth.defaultCredentials') }}</small>
       </form>
 
       <template #actions>
         <BaseButton type="submit" variant="primary" :loading="loading" @click="handleLogin">
-          Sign In
+          {{ t('auth.signIn') }}
         </BaseButton>
       </template>
     </BaseCard>

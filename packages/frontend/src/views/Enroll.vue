@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { api } from '@/services/api';
 import { BaseButton, BaseInput, BaseAlert, BaseEmptyState, BaseCard } from '@/components/ui';
 
+const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
@@ -16,7 +18,7 @@ const autoSubmitting = ref(false);
 
 async function validateToken() {
   if (!token.value.trim()) {
-    error.value = 'Please enter a token';
+    error.value = t('auth.pleaseEnterToken');
     return;
   }
 
@@ -31,7 +33,7 @@ async function validateToken() {
     const data = await response.json();
 
     if (!response.ok) {
-      error.value = data.error || 'Invalid token';
+      error.value = data.error || t('auth.invalidToken');
       loading.value = false;
       return;
     }
@@ -39,7 +41,7 @@ async function validateToken() {
     authStore.setStudent(data.student, data.token);
     router.push('/student/projects');
   } catch (err) {
-    error.value = 'Network error. Please try again.';
+    error.value = t('common.networkError');
     console.error(err);
   } finally {
     loading.value = false;
@@ -58,20 +60,20 @@ onMounted(() => {
 
 <template>
   <section data-bg="glow" data-center-content>
-    <BaseCard title="Student Enrollment" style="max-width: 50vw; min-width: 350px;">
-      <BaseEmptyState v-if="autoSubmitting" loading message="Validating your token..." />
+    <BaseCard :title="t('auth.studentEnrollment')" style="max-width: 50vw; min-width: 350px;">
+      <BaseEmptyState v-if="autoSubmitting" loading :message="t('auth.validatingToken')" />
 
       <div v-else>
-        <p data-subtitle>Enter your enrollment token to access your projects</p>
+        <p data-subtitle>{{ t('auth.studentEnrollmentSubtitle') }}</p>
 
         <form @submit.prevent="validateToken">
           <fieldset>
-            <label for="token">Enrollment Token</label>
+            <label for="token">{{ t('auth.enrollmentToken') }}</label>
             <BaseInput
               id="token"
               v-model="token"
               type="text"
-              placeholder="Enter your token"
+              :placeholder="t('auth.tokenPlaceholder')"
               :disabled="loading"
             />
           </fieldset>
@@ -82,7 +84,7 @@ onMounted(() => {
 
       <template #actions>
         <BaseButton type="submit" variant="primary" :loading="loading" @click="validateToken">
-          Enter
+          {{ t('auth.enter') }}
         </BaseButton>
       </template>
     </BaseCard>

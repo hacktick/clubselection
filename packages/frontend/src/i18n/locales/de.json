@@ -62,7 +62,22 @@
     "loginButton": "Anmelden",
     "loginError": "Ungültiger Benutzername oder Passwort",
     "welcomeBack": "Willkommen zurück",
-    "guest": "Gast"
+    "guest": "Gast",
+    "adminLogin": "Admin-Anmeldung",
+    "adminLoginSubtitle": "Melden Sie sich an, um Projekte und Einschreibungen zu verwalten",
+    "usernamePlaceholder": "Benutzername eingeben",
+    "passwordPlaceholder": "Passwort eingeben",
+    "signIn": "Anmelden",
+    "defaultCredentials": "Standard-Anmeldedaten: admin / admin",
+    "loginFailed": "Anmeldung fehlgeschlagen",
+    "studentEnrollment": "Schülereinschreibung",
+    "studentEnrollmentSubtitle": "Geben Sie Ihren Einschreibungs-Token ein, um auf Ihre Projekte zuzugreifen",
+    "enrollmentToken": "Einschreibungs-Token",
+    "tokenPlaceholder": "Token eingeben",
+    "enter": "Eingeben",
+    "pleaseEnterToken": "Bitte geben Sie einen Token ein",
+    "invalidToken": "Ungültiger Token",
+    "validatingToken": "Ihr Token wird überprüft..."
   },
   "nav": {
     "dashboard": "Dashboard",
