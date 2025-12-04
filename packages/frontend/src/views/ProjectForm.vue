@@ -439,6 +439,9 @@ if (isEditMode.value) {
       <BaseCard v-show="activeTab === 'students'" :title="t('student.add')">
         <template #titleActions>
           <BaseBadge status="info">{{ t('student.registered', studentCount) }}</BaseBadge>
+          <BaseButton v-if="studentCount > 0" @click="handleDeleteAllStudents" variant="danger" size="small" :loading="deletingStudents">
+            {{ t('common.deleteAll') }}
+          </BaseButton>
         </template>
 
         <p>{{ t('student.identifiersDescription') }}</p>
