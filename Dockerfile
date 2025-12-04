@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Copy root package files for workspace setup
 COPY package*.json ./
+COPY tsconfig.json ./
 COPY packages/frontend/package*.json ./packages/frontend/
 
 # Install all dependencies (needed for workspace)
