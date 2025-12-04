@@ -59,7 +59,6 @@ RUN npm ci --workspace=backend --omit=dev
 # Copy built backend
 COPY --from=backend-builder /app/packages/backend/dist ./packages/backend/dist
 COPY --from=backend-builder /app/packages/backend/prisma ./packages/backend/prisma
-COPY --from=backend-builder /app/packages/backend/node_modules/.prisma ./packages/backend/node_modules/.prisma
 
 # Copy built frontend
 COPY --from=frontend-builder /app/packages/frontend/dist ./packages/frontend/dist
