@@ -163,7 +163,7 @@
     "token": "Jeton",
     "identifier": "Identifiant",
     "identifiers": "Identifiants des etudiants",
-    "identifiersPlaceholder": "etudiant1@exemple.com\netudiant2@exemple.com\netudiant3@exemple.com",
+    "identifiersPlaceholder": "etudiant1{'@'}exemple.com\netudiant2{'@'}exemple.com\netudiant3{'@'}exemple.com",
     "identifiersDescription": "Entrez les emails, IDs ou autres identifiants des etudiants (un par ligne). Les jetons seront generes automatiquement pour chaque etudiant.",
     "noStudents": "Aucun etudiant trouve",
     "enterToken": "Entrez votre jeton",

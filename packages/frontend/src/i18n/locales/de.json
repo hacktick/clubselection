@@ -163,7 +163,7 @@
     "token": "Token",
     "identifier": "Kennung",
     "identifiers": "Schüler-Kennungen",
-    "identifiersPlaceholder": "schueler1@beispiel.de\nschueler2@beispiel.de\nschueler3@beispiel.de",
+    "identifiersPlaceholder": "schueler1{'@'}beispiel.de\nschueler2{'@'}beispiel.de\nschueler3{'@'}beispiel.de",
     "identifiersDescription": "Geben Sie E-Mail-Adressen, IDs oder andere Kennungen ein (eine pro Zeile). Tokens werden automatisch für jeden Schüler generiert.",
     "noStudents": "Keine Schüler gefunden",
     "enterToken": "Geben Sie Ihren Token ein",

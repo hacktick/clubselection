@@ -163,7 +163,7 @@
     "token": "Token",
     "identifier": "Identifier",
     "identifiers": "Student Identifiers",
-    "identifiersPlaceholder": "student1@example.com\nstudent2@example.com\nstudent3@example.com",
+    "identifiersPlaceholder": "student1{'@'}example.com\nstudent2{'@'}example.com\nstudent3{'@'}example.com",
     "identifiersDescription": "Enter student emails, IDs, or any identifiers (one per line). Tokens will be automatically generated for each student.",
     "noStudents": "No students found",
     "enterToken": "Enter your token",
