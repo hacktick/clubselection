@@ -191,19 +191,7 @@ onMounted(() => {
           </BaseButton>
         </template>
       </BaseCard>
-      <BaseEmptyState v-if="loading" loading :message="t('project.loadingProjects')" />
-
-      <BaseAlert v-else-if="error && projects.length === 0" type="error">
-        {{ error }}
-      </BaseAlert>
-
-      <BaseEmptyState v-else-if="projects.length === 0" :message="t('project.noProjectsYet')">
-        <template #action>
-          <BaseButton variant="primary" @click="openCreateModal">{{ t('project.create') }}</BaseButton>
-        </template>
-      </BaseEmptyState>
-
-      <BaseCard v-else :title="t('project.title')">
+      <BaseCard :title="t('project.title')">
         <template #titleActions>
           <BaseButton variant="secondary" size="small" @click="showImportModal = true">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: -2px;">
@@ -215,7 +203,16 @@ onMounted(() => {
           </BaseButton>
           <BaseButton variant="primary" size="small" @click="openCreateModal">+ {{ t('common.new') }}</BaseButton>
         </template>
-        <table>
+
+        <BaseEmptyState v-if="loading" loading :message="t('project.loadingProjects')" />
+
+        <BaseAlert v-else-if="error && projects.length === 0" type="error">
+          {{ error }}
+        </BaseAlert>
+
+        <BaseEmptyState v-else-if="projects.length === 0" :message="t('project.noProjectsYet')" />
+
+        <table v-else>
           <thead>
             <tr>
               <th>{{ t('common.name') }}</th>
