@@ -1,7 +1,8 @@
 {
   "footer": {
     "license": "Licencia",
-    "sourceCode": "Codigo fuente"
+    "sourceCode": "Codigo fuente",
+    "apiDocs": "Documentacion API"
   },
   "license": {
     "mitLicense": "Licencia MIT",

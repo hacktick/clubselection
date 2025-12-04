@@ -1,5 +1,7 @@
 # Setup Guide
 
+**Repository**: [https://github.com/hacktick/clubselection](https://github.com/hacktick/clubselection)
+
 Complete installation and configuration guide for the Club Selection Management System.
 
 ---
@@ -45,7 +47,7 @@ git --version
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/hacktick/clubselection.git
 cd clubselection
 ```
 

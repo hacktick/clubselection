@@ -1,5 +1,7 @@
 # Architecture Documentation
 
+**Repository**: [https://github.com/hacktick/clubselection](https://github.com/hacktick/clubselection)
+
 ## System Architecture
 
 The Club Selection system is built as a **full-stack TypeScript monorepo** with clear separation between frontend and backend.
@@ -106,6 +108,27 @@ The Club Selection system is built as a **full-stack TypeScript monorepo** with 
   - DevTools integration
   - Plugin support
 
+#### Internationalization
+- **Vue I18n** 9.x - Internationalization plugin
+  - Supported languages: English, German, French, Spanish
+  - Locale-aware date/time formatting
+  - Dynamic language switching
+
+#### UI Component Library
+Custom base components in `src/components/ui/`:
+- **BaseButton** - Buttons with variants (primary, secondary, danger)
+- **BaseCard** - Content cards with title and actions
+- **BaseInput** - Form inputs with validation
+- **BaseTextarea** - Multi-line text input
+- **BaseSelect** - Dropdown selection
+- **BaseAlert** - Alert messages (success, error, info)
+- **BaseBadge** - Status badges
+- **BaseModal** - Modal dialogs
+- **BaseHeader** - Page headers
+- **BaseSection** - Content sections
+- **BaseEmptyState** - Empty state placeholders
+- **BaseSpinner** - Loading indicators
+
 #### Language & Typing
 - **TypeScript** 5.3 - Strict type checking
   - Interfaces for API responses
@@ -198,16 +221,28 @@ clubselection/
             │   ├── ProjectDetail.vue
             │   ├── ProjectForm.vue
             │   ├── Enroll.vue
-            │   └── StudentProjects.vue
+            │   ├── StudentProjects.vue
+            │   └── StudentCourseSelection.vue
             │
             ├── components/         # Reusable components
-            │   └── (shared UI components)
+            │   ├── ui/             # Base UI components
+            │   ├── UserMenu.vue
+            │   ├── AppHeader.vue
+            │   ├── AppFooter.vue
+            │   └── ImportProjectModal.vue
             │
-            ├── types/              # TypeScript interfaces
-            │   └── index.ts
+            ├── i18n/               # Internationalization
+            │   ├── index.ts
+            │   └── locales/        # EN, DE, FR, ES
+            │
+            ├── utils/              # Utility functions
+            │   └── date.ts
+            │
+            ├── services/           # API services
+            │   └── api.ts
             │
             └── styles/             # Global styles
-                └── main.css
+                └── gladia.css
 ```
 
 ---

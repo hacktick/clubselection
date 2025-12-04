@@ -1,5 +1,7 @@
 # Authentication System
 
+**Repository**: [https://github.com/hacktick/clubselection](https://github.com/hacktick/clubselection)
+
 ## Overview
 
 The Club Selection system uses a **dual authentication model**:

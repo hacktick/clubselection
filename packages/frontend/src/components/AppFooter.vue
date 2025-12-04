@@ -14,6 +14,7 @@ const showLicense = ref(false);
       <span>&copy; {{ currentYear }} Club Selection</span>
       <nav>
         <a href="https://github.com/hacktick/clubselection" target="_blank" rel="noopener noreferrer">{{ t('footer.sourceCode') }}</a>
+        <a href="/api/docs" target="_blank" rel="noopener noreferrer">{{ t('footer.apiDocs') }}</a>
         <a href="#" @click.prevent="showLicense = true">{{ t('footer.license') }}</a>
       </nav>
     </div>

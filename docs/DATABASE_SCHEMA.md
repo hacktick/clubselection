@@ -1,5 +1,7 @@
 # Database Schema Documentation
 
+**Repository**: [https://github.com/hacktick/clubselection](https://github.com/hacktick/clubselection)
+
 ## Overview
 
 The Club Selection system uses **SQLite** as the database with **Prisma ORM** for data modeling and migrations.
@@ -458,6 +460,60 @@ Constraints and requirements for course enrollment.
 **Notes**:
 - Currently defined but not fully implemented in the application logic
 - Planned for future enforcement in enrollment workflow
+
+---
+
+### Submission
+
+Tracks when students complete their course selections for a project.
+
+**Table**: `Submission`
+
+| Field | Type | Constraints | Description |
+|-------|------|-------------|-------------|
+| id | String | PRIMARY KEY, @default(cuid()) | Unique identifier |
+| studentId | String | FOREIGN KEY | Student reference |
+| projectId | String | FOREIGN KEY | Project reference |
+| createdAt | DateTime | @default(now()) | Submission timestamp |
+| updatedAt | DateTime | @updatedAt | Last update timestamp |
+
+**Relationships**:
+- `student` -> `Student` - Student who submitted
+- `project` -> `Project` - Project submitted for
+
+**Indexes**:
+- `[studentId, projectId]` (unique composite) - One submission per student per project
+
+**Notes**:
+- Created when a student completes their course selection
+- Used to track completion status in admin views
+
+---
+
+### Setting
+
+Stores system-wide configuration settings.
+
+**Table**: `Setting`
+
+| Field | Type | Constraints | Description |
+|-------|------|-------------|-------------|
+| id | String | PRIMARY KEY, @default(cuid()) | Unique identifier |
+| key | String | UNIQUE, NOT NULL | Setting key (e.g., "site_title") |
+| value | String | NOT NULL | Setting value |
+| createdAt | DateTime | @default(now()) | Record creation timestamp |
+| updatedAt | DateTime | @updatedAt | Last update timestamp |
+
+**Current Settings**:
+- `site_title` - The title displayed in the application header
+
+**Example**:
+```json
+{
+  "key": "site_title",
+  "value": "Club Selection Management"
+}
+```
 
 ---
 

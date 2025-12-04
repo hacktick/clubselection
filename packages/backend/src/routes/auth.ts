@@ -6,7 +6,50 @@ import { generateToken } from '../middleware/auth.js';
 
 const router = Router();
 
-// POST /api/login - Admin authentication
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Admin login
+ *     description: Authenticates an administrator with username and password
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: admin
+ *               password:
+ *                 type: string
+ *                 example: admin
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 token:
+ *                   type: string
+ *                 admin:
+ *                   $ref: '#/components/schemas/Admin'
+ *       400:
+ *         description: Validation error
+ *       401:
+ *         description: Invalid credentials
+ *       500:
+ *         description: Server error
+ */
 router.post(
     '/login',
     [

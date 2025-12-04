@@ -1,5 +1,7 @@
 # API Documentation
 
+**Repository**: [https://github.com/hacktick/clubselection](https://github.com/hacktick/clubselection)
+
 ## Base URL
 
 ```
@@ -360,6 +362,116 @@ Deletes all enrollments for a project, effectively resetting it.
 **Error Responses**
 - `404`: Project not found
 - `500`: Server error
+
+### Delete Project
+**DELETE** `/api/admin/projects/:id`
+
+Deletes a project and all associated data (courses, enrollments, tags, time sections, submissions).
+
+**URL Parameters**
+- `id`: Project ID
+
+**Response**
+```json
+{
+  "success": true,
+  "message": "Project and all related data deleted successfully"
+}
+```
+
+**Cascade Deletion Order**:
+1. Enrollments (for courses in this project)
+2. Submissions
+3. Course occurrences
+4. Courses
+5. Tags
+6. Time sections
+7. Student associations (disconnects, doesn't delete students)
+8. Project
+
+**Error Responses**
+- `404`: Project not found
+- `500`: Server error
+
+### Export Project
+**GET** `/api/admin/projects/:id/export`
+
+Exports project configuration as YAML file.
+
+**URL Parameters**
+- `id`: Project ID
+
+**Response**
+- Content-Type: `application/x-yaml`
+- Content-Disposition: `attachment; filename="project-name-export.yml"`
+
+**YAML Structure**:
+```yaml
+name: "Project Name"
+description: "Project description"
+timezone: "Europe/Berlin"
+submissionStart: "2024-01-01T00:00:00.000Z"
+submissionEnd: "2024-01-31T23:59:59.999Z"
+timeSections:
+  - label: "Period 1"
+    startTime: "08:00"
+    endTime: "09:00"
+    order: 1
+tags:
+  - name: "Sports"
+    color: "#FF5733"
+    minRequired: 1
+    maxAllowed: 2
+courses:
+  - name: "Basketball"
+    description: "Team sport"
+    capacity: 20
+    tags: ["Sports"]
+    occurrences:
+      - dayOfWeek: 1
+        section: "Period 1"
+```
+
+---
+
+## Settings Endpoints
+
+### Get Site Title
+**GET** `/api/settings/site_title`
+
+Retrieves the current site title setting.
+
+**Response**
+```json
+{
+  "setting": {
+    "key": "site_title",
+    "value": "Club Selection"
+  }
+}
+```
+
+### Update Site Title
+**PUT** `/api/admin/settings/site_title`
+
+Updates the site title.
+
+**Request Body**
+```json
+{
+  "value": "My School Club Selection"
+}
+```
+
+**Response**
+```json
+{
+  "setting": {
+    "key": "site_title",
+    "value": "My School Club Selection"
+  }
+}
+```
 
 ---
 

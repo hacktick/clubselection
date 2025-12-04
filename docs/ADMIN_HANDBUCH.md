@@ -1,5 +1,7 @@
 # Administratorhandbuch
 
+**Repository**: [https://github.com/hacktick/clubselection](https://github.com/hacktick/clubselection)
+
 Dieses Handbuch beschreibt alle Funktionen des Club Selection Management Systems für Administratoren.
 
 ## Inhaltsverzeichnis
@@ -93,6 +95,31 @@ Falls Sie eine Wahlperiode zurücksetzen möchten:
 3. Bestätigen Sie die Aktion
 
 > **Warnung**: Diese Aktion löscht alle Schüleranmeldungen unwiderruflich!
+
+### Projekt löschen
+
+Um ein Projekt vollständig zu entfernen:
+
+1. Öffnen Sie das Admin-Dashboard
+2. Klicken Sie auf das **Löschen**-Symbol (Mülleimer) neben dem Projekt
+3. Bestätigen Sie die Aktion im Bestätigungsdialog
+
+> **Warnung**: Beim Löschen werden alle zugehörigen Daten unwiderruflich entfernt:
+> - Alle Kurse und deren Termine
+> - Alle Schüleranmeldungen
+> - Alle Kategorien (Tags)
+> - Alle Zeitabschnitte
+> - Alle Submissions
+
+### Projekt importieren
+
+Sie können ein zuvor exportiertes Projekt importieren:
+
+1. Klicken Sie auf **Importieren** im Dashboard
+2. Wählen Sie die YAML-Datei aus
+3. Das Projekt wird mit allen Kursen, Zeitabschnitten und Kategorien erstellt
+
+> **Hinweis**: Schülerdaten werden aus Datenschutzgründen nicht importiert.
 
 ---
 
@@ -311,11 +338,31 @@ Jede Kursanmeldung hat einen Status:
 
 ### Seitentitel ändern
 
-1. Klicken Sie auf **Einstellungen** im Dashboard
+1. Im Dashboard finden Sie die Einstellungen-Karte
 2. Geben Sie den neuen Seitentitel ein (z.B. "AG-Wahl Musterschule")
 3. Klicken Sie auf **Speichern**
 
-Der Seitentitel wird auf allen Seiten der Anwendung angezeigt.
+Der Seitentitel wird im Header der Anwendung angezeigt.
+
+### Sprache ändern
+
+Die Anwendung unterstützt mehrere Sprachen:
+- Deutsch (DE)
+- Englisch (EN)
+- Französisch (FR)
+- Spanisch (ES)
+
+1. Klicken Sie auf das Benutzermenü (oben rechts)
+2. Wählen Sie die gewünschte Sprache aus
+3. Die Oberfläche wird sofort in der neuen Sprache angezeigt
+
+> **Hinweis**: Datumsformate passen sich automatisch der Sprache an (z.B. dd.MM.yyyy für Deutsch).
+
+### Abmelden
+
+1. Klicken Sie auf das Benutzermenü (oben rechts)
+2. Wählen Sie **Abmelden**
+3. Sie werden zur Startseite weitergeleitet
 
 ---
 
@@ -338,11 +385,12 @@ Der Zeitabschnitt wird noch von einem oder mehreren Kursen verwendet. Bearbeiten
 
 ### Wie kann ich ein Projekt duplizieren?
 
-1. Exportieren Sie das Projekt als YAML
-2. Erstellen Sie ein neues Projekt
-3. Importieren Sie die YAML-Datei (Funktion in Entwicklung)
+1. Exportieren Sie das Projekt als YAML (Klicken Sie auf das Export-Symbol)
+2. Klicken Sie auf **Importieren** im Dashboard
+3. Wählen Sie die exportierte YAML-Datei
+4. Das Projekt wird mit allen Kursen, Zeitabschnitten und Kategorien erstellt
 
-**Alternativ**: Erstellen Sie das Projekt manuell mit denselben Kursen und Zeitabschnitten.
+> **Hinweis**: Schülerdaten und Anmeldungen werden nicht dupliziert.
 
 ### Wie generiere ich QR-Codes für Schüler?
 
@@ -357,4 +405,7 @@ Ersetzen Sie `SCHÜLER_TOKEN` durch den jeweiligen Token aus der Schülerliste.
 
 ## Support
 
-Bei technischen Problemen oder Fragen wenden Sie sich an Ihren Systemadministrator.
+Bei technischen Problemen oder Fragen:
+- Besuchen Sie das Repository: [https://github.com/hacktick/clubselection](https://github.com/hacktick/clubselection)
+- Erstellen Sie ein Issue für Fehlerberichte oder Feature-Anfragen
+- Wenden Sie sich an Ihren Systemadministrator

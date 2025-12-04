@@ -3,6 +3,8 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger.js';
 import authRoutes from './routes/auth.js';
 import enrollRoutes from './routes/enroll.js';
 import adminRoutes from './routes/admin.js';
@@ -26,6 +28,18 @@ app.use(cors());
 app.use(express.json());
 
 // Public routes (no authentication required)
+// Swagger API documentation
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'Club Selection API Documentation',
+}));
+
+// OpenAPI JSON endpoint
+app.get('/api/docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
+
 // Basic health check route
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
