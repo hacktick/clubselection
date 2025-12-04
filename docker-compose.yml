@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: clubselection
     expose:
       - "3001"
     environment:
@@ -23,14 +24,14 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.clubselection.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.clubselection.entrypoints=websecure"
-      - "traefik.http.routers.clubselection.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.clubselection.tls.certresolver=cloudflare"
       - "traefik.http.services.clubselection.loadbalancer.server.port=3001"
     networks:
-      - traefik
+      - homelab_bridged
 
 volumes:
   app-data:
 
 networks:
-  traefik:
+  homelab_bridged:
     external: true
